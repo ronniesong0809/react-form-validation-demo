@@ -42,16 +42,15 @@ class App extends React.Component {
     switch(fieldName) {
       case 'phone':
         phoneValid = value.match(/^[0-9]{3}[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4}$/im);
-        //nameValid = value.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
-        errors.phone = phoneValid ? '' : 'Name must be longer than two characters.';
+        errors.phone = phoneValid ? '' : ' ✗ Please enter a vaild phone number. Usage: 1234567890 or 123-456-7890';
         break;
       case 'email':
         emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
-        errors.email = emailValid ? '' : 'Enter a valid email.';
+        errors.email = emailValid ? '' : ' ✗ Please enter a valid email.';
         break;
       case 'message':
         messageValid = value.length >= 2;
-        errors.message = messageValid ? '' : 'Message must be longer than two characters.';
+        errors.message = messageValid ? '' : ' ✗ Message must be longer than two characters.';
         break;
       default:
         break;
@@ -78,15 +77,15 @@ class App extends React.Component {
       <form onSubmit={this.handleSubmit}>
         <div className={`input-wrapper ${this.errorClass(this.state.errors.phone)}`}>
           <input ref="phone" name="phone" placeholder="Phone" onChange={this.handleChange} value={this.state.phone}/>
-          <span>{this.state.errors.phone || 'No errors'}</span>
+          <span>{this.state.errors.phone || ' ✓'}</span>
         </div>
         <div className={`input-wrapper ${this.errorClass(this.state.errors.email)}`}>
           <input ref="email" name="email" placeholder="Email" onChange={this.handleChange} value={this.state.email}/>
-          <span>{this.state.errors.email || 'No errors'}</span>
+          <span>{this.state.errors.email || ' ✓'}</span>
         </div>
         <div className={`input-wrapper ${this.errorClass(this.state.errors.message)}`}>
           <textarea ref="message" name="message" placeholder="Message" onChange={this.handleChange} value={this.state.message}></textarea>
-          <span>{this.state.errors.message || 'No errors'}</span>
+          <span>{this.state.errors.message || ' ✓'}</span>
         </div>
         <input name="submit" type="submit" disabled={!this.state.formValid}/>
       </form>
